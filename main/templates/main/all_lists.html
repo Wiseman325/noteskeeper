@@ -1,0 +1,24 @@
+{% extends "main/base.html" %}
+
+{% block title %} All List {% endblock %}
+
+{% block content %}
+    <h1>All To-Do Lists</h1>
+
+    {% for list in lists %}
+        <h2><a href="{% url 'index' list.id %}">{{ list.name }}</a></h2>
+        <ul>
+            {% for item in list.item_set.all %}
+                <li>
+                    {% if item.completed %}
+                        <strike>{{ item.text }}</strike>
+                    {% else %}
+                        {{ item.text }}
+                    {% endif %}
+                </li>
+            {% empty %}
+                <li>No items in this list.</li>
+            {% endfor %}
+        </ul>
+    {% endfor %}
+{% endblock %}
